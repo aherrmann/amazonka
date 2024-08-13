@@ -132,6 +132,10 @@
           default = amazonka-gen;
         };
 
+        legacyPackages = {
+          inherit mkDevShell ghc98;
+        };
+
         devShells = {
           ghc810 = mkDevShell ghc810;
           ghc90 = mkDevShell ghc90;
