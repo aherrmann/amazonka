@@ -54,7 +54,7 @@
         ghc98 = pkgs.haskell.packages."ghc98";
 
         # The default ghc to use when entering `nix develop`.
-        ghcDefault = ghc94;
+        ghcDefault = ghc98;
 
         renameVersion = version: "ghc" + (pkgs.lib.replaceStrings [ "." ] [ "" ] version);
 
