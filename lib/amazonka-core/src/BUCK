@@ -8,6 +8,7 @@ haskell_library(
     deps = [
         "//haskell:aeson",
         "//haskell:attoparsec",
+        "//haskell:base",
         "//haskell:bytestring",
         "//haskell:case-insensitive",
         "//haskell:conduit",
