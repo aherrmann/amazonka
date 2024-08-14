@@ -1,9 +1,49 @@
-load("//haskell:defs.bzl", "default_ghc_flags")
+default_extensions = [
+    "ConstraintKinds",
+    "DataKinds",
+    "DefaultSignatures",
+    "DeriveAnyClass",
+    "DeriveFoldable",
+    "DeriveFunctor",
+    "DeriveGeneric",
+    "DeriveTraversable",
+    "DerivingStrategies",
+    "DerivingVia",
+    "DuplicateRecordFields",
+    "FlexibleContexts",
+    "FlexibleInstances",
+    "GADTs",
+    "GeneralizedNewtypeDeriving",
+    "LambdaCase",
+    "NamedFieldPuns",
+    "NoImplicitPrelude",
+    "OverloadedStrings",
+    "PackageImports",
+    "PatternSynonyms",
+    "RankNTypes",
+    "RecordWildCards",
+    "ScopedTypeVariables",
+    "StandaloneDeriving",
+    "StrictData",
+    "TupleSections",
+    "TypeApplications",
+    "TypeFamilies",
+    "ViewPatterns",
+]
+
+ghc_flags = ["-X" + ext for ext in default_extensions] + [
+    "-Wall",
+    "-funbox-strict-fields",
+    "-fwarn-incomplete-uni-patterns",
+    "-fwarn-incomplete-record-updates",
+    "-fwarn-missing-deriving-strategies",
+    "-fwarn-unused-packages",
+]
 
 haskell_library(
     name = "amazonka-core",
     srcs = glob(["**/*.hs"]),
-    compiler_flags = default_ghc_flags,
+    compiler_flags = ghc_flags,
     visibility = ["//amazonka/..."],
     deps = [
         "//haskell:aeson",
