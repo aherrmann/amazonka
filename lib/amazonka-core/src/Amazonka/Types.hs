@@ -254,8 +254,9 @@ newErrorCode = ErrorCode . strip . unnamespace
     -- as to whether the error shape's name, or the error code is present
     -- in the response.
     strip x =
-      fromMaybe x $
-        Text.stripSuffix "Exception" x <|> Text.stripSuffix "Fault" x
+      fromMaybe x
+        $ Text.stripSuffix "Exception" x
+        <|> Text.stripSuffix "Fault" x
 
     -- Removing the (potential) leading ...# namespace.
     unnamespace x =
@@ -480,7 +481,7 @@ retry_check f r@Exponential {check} = f check <&> \check' -> (r :: Retry) {check
 
 -- | Signing algorithm specific metadata.
 data Meta where
-  Meta :: ToLog a => a -> Meta
+  Meta :: (ToLog a) => a -> Meta
 
 instance ToLog Meta where
   build (Meta m) = build m
@@ -504,8 +505,8 @@ signed_signedRequest f s@Signed {signedRequest} = f signedRequest <&> \signedReq
 type Algorithm a = Request a -> AuthEnv -> Region -> UTCTime -> Signed a
 
 data Signer = Signer
-  { sign :: forall a. Algorithm a,
-    presign :: forall a. Seconds -> Algorithm a
+  { sign :: forall (a :: Type). Algorithm a,
+    presign :: forall (a :: Type). Seconds -> Algorithm a
   }
 
 -- | Attributes and functions specific to an AWS service.
@@ -663,7 +664,7 @@ class (Typeable a, Typeable (AWSResponse a)) => AWSRequest a where
     Request a
 
   response ::
-    MonadResource m =>
+    (MonadResource m) =>
     -- | Raw response body hook.
     (ByteStringLazy -> IO ByteStringLazy) ->
     Service ->
@@ -777,18 +778,26 @@ instance ToLog AuthEnv where
 instance FromJSON AuthEnv where
   parseJSON = withObject "AuthEnv" $ \o ->
     AuthEnv
-      <$> o .: "AccessKeyId"
-      <*> o .: "SecretAccessKey"
-      <*> o .:? "Token"
-      <*> o .:? "Expiration"
+      <$> o
+      .: "AccessKeyId"
+      <*> o
+      .: "SecretAccessKey"
+      <*> o
+      .:? "Token"
+      <*> o
+      .:? "Expiration"
 
 instance FromXML AuthEnv where
   parseXML x =
     AuthEnv
-      <$> x .@ "AccessKeyId"
-      <*> x .@ "SecretAccessKey"
-      <*> x .@? "SessionToken"
-      <*> x .@? "Expiration"
+      <$> x
+      .@ "AccessKeyId"
+      <*> x
+      .@ "SecretAccessKey"
+      <*> x
+      .@? "SessionToken"
+      <*> x
+      .@? "Expiration"
 
 {-# INLINE authEnv_accessKeyId #-}
 authEnv_accessKeyId :: Lens' AuthEnv AccessKey
@@ -816,7 +825,7 @@ instance ToLog Auth where
   build (Ref t _) = "[Amazonka Auth] { <thread:" <> build (show t) <> "> }"
   build (Auth e) = build e
 
-withAuth :: MonadIO m => Auth -> (AuthEnv -> m a) -> m a
+withAuth :: (MonadIO m) => Auth -> (AuthEnv -> m a) -> m a
 withAuth (Ref _ r) f = liftIO (readIORef r) >>= f
 withAuth (Auth e) f = f e
 
@@ -1001,8 +1010,8 @@ instance Hashable Seconds where
 
 instance FromText Seconds where
   fromText t =
-    maybe (Left err) (Right . Seconds) $
-      parseTimeM False defaultTimeLocale diffTimeFormatString str
+    maybe (Left err) (Right . Seconds)
+      $ parseTimeM False defaultTimeLocale diffTimeFormatString str
     where
       str = Text.unpack t
       err =
