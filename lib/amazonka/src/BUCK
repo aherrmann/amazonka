@@ -42,7 +42,7 @@ ghc_flags = ["-X" + ext for ext in extensions] + [
 
 haskell_library(
     name = "amazonka",
-    srcs = glob(["**/*.hs"]),
+    srcs = glob(["**/*.hs", "**/*.hs-boot"]),
     compiler_flags = ghc_flags,
     visibility = ["//amazonka/..."],
     deps = [
