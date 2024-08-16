@@ -497,7 +497,7 @@ addHookFor_ newHook oldHook env a = do
 -- -- Example: Prevent any request hooks from running against a @PutObjectRequest@:
 -- requestHook (removeHooksFor @PutObjectRequest) :: Hooks -> Hooks
 -- @
-removeHooksFor :: forall a b. (Typeable a, Typeable b) => Hook b -> Hook b
+removeHooksFor :: forall (a :: Type) (b :: Type). (Typeable a, Typeable b) => Hook b -> Hook b
 removeHooksFor oldHook env = case eqT @a @b of
   Just Refl -> pure
   Nothing -> oldHook env
@@ -508,7 +508,7 @@ removeHooksFor oldHook env = case eqT @a @b of
 -- -- Example: Prevent any error hooks from running against errors caused by a @PutObjectRequest@:
 -- errorHook (removeHooksFor @(Finality, Request PutObjectRequest, Error)) :: Hooks -> Hooks
 -- @
-removeHooksFor_ :: forall a b. (Typeable a, Typeable b) => Hook_ b -> Hook_ b
+removeHooksFor_ :: forall (a :: Type) (b :: Type). (Typeable a, Typeable b) => Hook_ b -> Hook_ b
 removeHooksFor_ oldHook env a = case eqT @a @b of
   Just Refl -> pure ()
   Nothing -> oldHook env a
