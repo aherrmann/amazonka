@@ -14,7 +14,7 @@ haskell_library(
     compiler_flags = ghc_flags,
     visibility = ["//amazonka/..."],
     deps = [
-        "//amazonka/lib/amazonka-core/src:amazonka-core",
+        "//amazonka/lib/amazonka-core:amazonka-core",
         "//haskell:base",
         "//haskell:lens",
         "//haskell:text",

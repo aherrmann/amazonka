@@ -10,11 +10,11 @@ ghc_flags = ["-X" + ext for ext in extensions] + [
 
 haskell_library(
     name = "amazonka-sts",
-    srcs = glob(["**/*.hs"]),
+    srcs = glob(["src/**/*.hs", "gen/**/*.hs"]),
     compiler_flags = ghc_flags,
     visibility = ["//amazonka/..."],
     deps = [
-        "//amazonka/lib/amazonka-core/src:amazonka-core",
+        "//amazonka/lib/amazonka-core:amazonka-core",
         "//haskell:aeson",
         "//haskell:attoparsec",
         "//haskell:base",
