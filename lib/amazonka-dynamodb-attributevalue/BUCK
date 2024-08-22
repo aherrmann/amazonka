@@ -1,0 +1,27 @@
+extensions = [
+    "NoImplicitPrelude",
+]
+
+ghc_flags = ["-X" + ext for ext in extensions] + [
+    "-Wall",
+    "-funbox-strict-fields",
+    "-fwarn-incomplete-uni-patterns",
+    "-fwarn-incomplete-record-updates",
+    "-fwarn-missing-deriving-strategies",
+    "-fwarn-unused-packages",
+]
+
+haskell_library(
+    name = "amazonka-dynamodb-attributevalue",
+    srcs = glob(["src/**/*.hs"]),
+    compiler_flags = ghc_flags,
+    visibility = ["//amazonka/..."],
+    deps = [
+        "//amazonka/lib/amazonka-core:amazonka-core",
+        "//haskell:aeson",
+        "//haskell:base",
+        "//haskell:containers",
+        "//haskell:hashable",
+        "//haskell:vector",
+    ],
+)
