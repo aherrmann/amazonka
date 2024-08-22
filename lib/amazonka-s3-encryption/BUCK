@@ -44,6 +44,7 @@ haskell_library(
         "//amazonka/lib/amazonka-core:amazonka-core",
         "//amazonka/lib/services/amazonka-kms:amazonka-kms",
         "//amazonka/lib/services/amazonka-s3:amazonka-s3",
+        "//haskell:aeson",
         "//haskell:base",
         "//haskell:bytestring",
         "//haskell:case-insensitive",
