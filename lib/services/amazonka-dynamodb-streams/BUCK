@@ -1,0 +1,26 @@
+extensions = [
+]
+
+ghc_flags = ["-X" + ext for ext in extensions] + [
+    "-Wall",
+    "-fwarn-incomplete-uni-patterns",
+    "-fwarn-incomplete-record-updates",
+    "-funbox-strict-fields",
+]
+
+haskell_library(
+    name = "amazonka-dynamodb-streams",
+    srcs = glob(["src/**/*.hs", "src/**/*.hs-boot", "gen/**/*.hs", "gen/**/*.hs-boot"]),
+    compiler_flags = ghc_flags,
+    visibility = ["//amazonka/..."],
+    deps = [
+        "//haskell:aeson",
+        "//amazonka/lib/amazonka-core:amazonka-core",
+        "//amazonka/lib/amazonka-dynamodb-attributevalue:amazonka-dynamodb-attributevalue",
+        "//haskell:base",
+        "//haskell:containers",
+        "//haskell:hashable",
+        "//haskell:unordered-containers",
+        "//haskell:vector",
+    ],
+)

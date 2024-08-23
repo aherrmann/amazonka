@@ -36,16 +36,16 @@ ghc_flags = ["-X" + ext for ext in extensions] + [
 
 haskell_library(
     name = "amazonka-s3-encryption",
-    srcs = glob(["src/**/*.hs"]),
+    srcs = glob(["src/**/*.hs", "src/**/*.hs-boot"]),
     compiler_flags = ghc_flags,
     visibility = ["//amazonka/..."],
     deps = [
+        "//haskell:base",
+        "//haskell:aeson",
         "//amazonka/lib/amazonka:amazonka",
         "//amazonka/lib/amazonka-core:amazonka-core",
         "//amazonka/lib/services/amazonka-kms:amazonka-kms",
         "//amazonka/lib/services/amazonka-s3:amazonka-s3",
-        "//haskell:aeson",
-        "//haskell:base",
         "//haskell:bytestring",
         "//haskell:case-insensitive",
         "//haskell:conduit",

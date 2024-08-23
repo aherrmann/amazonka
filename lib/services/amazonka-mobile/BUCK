@@ -1,0 +1,20 @@
+extensions = [
+]
+
+ghc_flags = ["-X" + ext for ext in extensions] + [
+    "-Wall",
+    "-fwarn-incomplete-uni-patterns",
+    "-fwarn-incomplete-record-updates",
+    "-funbox-strict-fields",
+]
+
+haskell_library(
+    name = "amazonka-mobile",
+    srcs = glob(["src/**/*.hs", "src/**/*.hs-boot", "gen/**/*.hs", "gen/**/*.hs-boot"]),
+    compiler_flags = ghc_flags,
+    visibility = ["//amazonka/..."],
+    deps = [
+        "//amazonka/lib/amazonka-core:amazonka-core",
+        "//haskell:base",
+    ],
+)

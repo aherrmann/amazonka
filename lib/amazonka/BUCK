@@ -46,11 +46,11 @@ haskell_library(
     compiler_flags = ghc_flags,
     visibility = ["//amazonka/..."],
     deps = [
+        "//haskell:base",
+        "//haskell:aeson",
         "//amazonka/lib/amazonka-core:amazonka-core",
         "//amazonka/lib/services/amazonka-sso:amazonka-sso",
         "//amazonka/lib/services/amazonka-sts:amazonka-sts",
-        "//haskell:aeson",
-        "//haskell:base",
         "//haskell:bytestring",
         "//haskell:conduit",
         "//haskell:directory",

@@ -1,0 +1,38 @@
+extensions = [
+]
+
+ghc_flags = ["-X" + ext for ext in extensions] + [
+    "-Wall",
+    "-fwarn-incomplete-uni-patterns",
+    "-fwarn-incomplete-record-updates",
+]
+
+haskell_library(
+    name = "amazonka-test",
+    srcs = glob(["src/**/*.hs", "src/**/*.hs-boot"]),
+    compiler_flags = ghc_flags,
+    visibility = ["//amazonka/..."],
+    deps = [
+        "//haskell:aeson",
+        "//amazonka/lib/amazonka-core:amazonka-core",
+        "//haskell:base",
+        "//haskell:bifunctors",
+        "//haskell:bytestring",
+        "//haskell:case-insensitive",
+        "//haskell:conduit",
+        "//haskell:conduit-extra",
+        "//haskell:groom",
+        "//haskell:http-client",
+        "//haskell:http-types",
+        "//haskell:process",
+        "//haskell:resourcet",
+        "//haskell:tasty",
+        "//haskell:tasty-hunit",
+        "//haskell:template-haskell",
+        "//haskell:temporary",
+        "//haskell:text",
+        "//haskell:time",
+        "//haskell:unordered-containers",
+        "//haskell:yaml",
+    ],
+)

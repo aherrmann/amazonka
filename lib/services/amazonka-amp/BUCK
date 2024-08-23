@@ -10,7 +10,7 @@ ghc_flags = ["-X" + ext for ext in extensions] + [
 
 haskell_library(
     name = "amazonka-amp",
-    srcs = glob(["src/**/*.hs", "gen/**/*.hs"]),
+    srcs = glob(["src/**/*.hs", "src/**/*.hs-boot", "gen/**/*.hs", "gen/**/*.hs-boot"]),
     compiler_flags = ghc_flags,
     visibility = ["//amazonka/..."],
     deps = [

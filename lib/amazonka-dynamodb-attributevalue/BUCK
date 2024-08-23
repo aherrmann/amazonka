@@ -13,13 +13,13 @@ ghc_flags = ["-X" + ext for ext in extensions] + [
 
 haskell_library(
     name = "amazonka-dynamodb-attributevalue",
-    srcs = glob(["src/**/*.hs"]),
+    srcs = glob(["src/**/*.hs", "src/**/*.hs-boot"]),
     compiler_flags = ghc_flags,
     visibility = ["//amazonka/..."],
     deps = [
-        "//amazonka/lib/amazonka-core:amazonka-core",
-        "//haskell:aeson",
         "//haskell:base",
+        "//haskell:aeson",
+        "//amazonka/lib/amazonka-core:amazonka-core",
         "//haskell:containers",
         "//haskell:hashable",
         "//haskell:vector",

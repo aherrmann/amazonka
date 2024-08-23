@@ -1,4 +1,5 @@
 extensions = [
+    "NoImplicitPrelude",
     "ConstraintKinds",
     "DataKinds",
     "DefaultSignatures",
@@ -16,7 +17,6 @@ extensions = [
     "GeneralizedNewtypeDeriving",
     "LambdaCase",
     "NamedFieldPuns",
-    "NoImplicitPrelude",
     "OverloadedStrings",
     "PackageImports",
     "PatternSynonyms",
@@ -42,13 +42,13 @@ ghc_flags = ["-X" + ext for ext in extensions] + [
 
 haskell_library(
     name = "amazonka-core",
-    srcs = glob(["src/**/*.hs"]),
+    srcs = glob(["src/**/*.hs", "src/**/*.hs-boot"]),
     compiler_flags = ghc_flags,
     visibility = ["//amazonka/..."],
     deps = [
+        "//haskell:base",
         "//haskell:aeson",
         "//haskell:attoparsec",
-        "//haskell:base",
         "//haskell:bytestring",
         "//haskell:case-insensitive",
         "//haskell:conduit",
